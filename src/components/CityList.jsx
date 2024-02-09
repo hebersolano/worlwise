@@ -5,7 +5,7 @@ import Message from "./Message";
 
 function CityList({ isLoading, cities }) {
   if (isLoading) return <Spinner />;
-  if (cities.length) return <Message message={"No data"} />;
+  if (cities.length == 0) return <Message message={"No data"} />;
   console.log(cities);
 
   return (
