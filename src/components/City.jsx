@@ -1,9 +1,9 @@
 import { useParams, useNavigate } from "react-router-dom";
-import { useState, useEffect, useContext } from "react";
+import { useEffect } from "react";
 import styles from "./City.module.css";
 import Button from "./Button";
 import Spinner from "./Spinner";
-import { CitiesContext } from "../contexts/CitiesContext";
+import { useCities } from "../contexts/CitiesContext";
 
 const formatDate = (date) =>
   new Intl.DateTimeFormat("en", {
@@ -15,7 +15,7 @@ const formatDate = (date) =>
 
 function City() {
   const { id } = useParams();
-  const { currentCity, getCity, isLoading } = useContext(CitiesContext);
+  const { currentCity, getCity, isLoading } = useCities();
   const navigate = useNavigate();
 
   useEffect(
