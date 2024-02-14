@@ -8,28 +8,27 @@ function CitiesProvider({ children }) {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(function () {
-    async function fetchCities() {
-      try {
-        setIsLoading(true);
-        const res = await fetch("http://localhost:8080/cities");
-        const data = await res.json();
-        // console.log(data)
-        setCities(data);
-      } catch (e) {
-        console.error(e);
-      } finally {
-        setIsLoading(false);
-      }
-    }
     fetchCities();
   }, []);
+
+  async function fetchCities() {
+    try {
+      setIsLoading(true);
+      const res = await fetch("http://localhost:8080/cities");
+      const data = await res.json();
+      setCities(data);
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setIsLoading(false);
+    }
+  }
 
   async function getCity(id) {
     try {
       setIsLoading(true);
       const res = await fetch(`http://localhost:8080/cities/${id}`);
       const data = await res.json();
-      console.log(data);
       setCurrentCity(data);
     } catch (e) {
       console.error(e);
@@ -48,9 +47,26 @@ function CitiesProvider({ children }) {
           "Content-Type": "application/json",
         },
       });
-      console.log(res);
       const data = await res.json();
-      console.log(data);
+      await fetchCities();
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  async function deleteCity(id) {
+    try {
+      setIsLoading(true);
+      const res = await fetch(`http://localhost:8080/cities/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await res.json();
+      await fetchCities();
     } catch (e) {
       console.error(e);
     } finally {
@@ -59,7 +75,7 @@ function CitiesProvider({ children }) {
   }
 
   return (
-    <CitiesContext.Provider value={{ cities, isLoading, currentCity, getCity, createCity }}>
+    <CitiesContext.Provider value={{ cities, isLoading, currentCity, getCity, createCity, deleteCity }}>
       {children}
     </CitiesContext.Provider>
   );
