@@ -18,7 +18,7 @@ function PageNav() {
         </li>
         <li>
           {isAuthenticated ? (
-            <User />
+            <User type="block" />
           ) : (
             <NavLink to="/login" className={styles.ctaLink}>
               Login

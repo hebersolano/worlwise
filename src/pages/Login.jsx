@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import styles from "./Login.module.css";
 import { useEffect, useState } from "react";
+import Button from "../components/Button";
 
 export default function Login() {
   // PRE-FILL FOR DEV PURPOSES
@@ -12,7 +13,7 @@ export default function Login() {
 
   useEffect(
     function () {
-      if (isAuthenticated) navigate("/app");
+      if (isAuthenticated) navigate("/app", { replace: true });
     },
     [isAuthenticated]
   );
@@ -24,7 +25,7 @@ export default function Login() {
 
   return (
     <main className={styles.login}>
-      <form className={styles.form}>
+      <form className={styles.form} onClick={handleSubmit}>
         <div className={styles.row}>
           <label htmlFor="email">Email address</label>
           <input type="email" id="email" onChange={(e) => setEmail(e.target.value)} value={email} />
@@ -41,7 +42,7 @@ export default function Login() {
         </div>
 
         <div>
-          <button onClick={handleSubmit}>Login</button>
+          <Button type="primary">Login</Button>
         </div>
       </form>
     </main>
