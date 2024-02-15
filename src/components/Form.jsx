@@ -49,7 +49,7 @@ function reducer(state, action) {
     case "setNotes":
       return { ...state, notes: payload };
     case "error":
-      return { ...state, geocodingError: payload };
+      return { ...state, geocodingError: payload, isLoadingFetch: false };
     default:
       break;
   }
@@ -61,7 +61,7 @@ function Form() {
   const [date, setDate] = useState(new Date());
   const [lat, lng] = useUrlPosition();
 
-  const { createCity } = useCities();
+  const { createCity, isLoading } = useCities();
   const navigate = useNavigate();
 
   useEffect(
@@ -90,13 +90,13 @@ function Form() {
     [lat, lng]
   );
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
 
     if (!cityName && !date) return;
 
     const newCity = { cityName, country, emoji, date, notes, position: { lat, lng } };
-    createCity(newCity);
+    await createCity(newCity);
     navigate("/app/cities");
   }
 
@@ -105,7 +105,7 @@ function Form() {
   if (geocodingError) return <Message message={geocodingError} />;
 
   return (
-    <form className={styles.form} onSubmit={handleSubmit}>
+    <form className={`${styles.form} ${isLoading ? styles.loading : ""}`} onSubmit={handleSubmit}>
       <div className={styles.row}>
         <label htmlFor="cityName">City name</label>
         <input
