@@ -1,5 +1,3 @@
-import { useContext } from "react";
-
 import styles from "./CityList.module.css";
 import CityItem from "./CityItem";
 import Spinner from "./Spinner";

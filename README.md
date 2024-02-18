@@ -8,6 +8,7 @@ React project from the [Ultimate React Course](https://github.com/jonasschmedtma
 - React context: `createContext` and `useContext`.
 - CSS styles modules
 - Leaflet React Components
+- Lazy loading
 
 ## Features to implement
 

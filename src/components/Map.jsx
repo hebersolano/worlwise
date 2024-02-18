@@ -40,7 +40,7 @@ function Map() {
 
 export default Map;
 
-function ButtonLocation({ setMapPosition }) {
+function ButtonLocation() {
   const [isLoadingPosition, setIsLoadingPosition] = useState(false);
 
   const map = useMapEvents({
@@ -75,7 +75,7 @@ function SetView({ position }) {
 
 function HandleClick() {
   const navigate = useNavigate();
-  const map = useMapEvents({
+  useMapEvents({
     click(e) {
       const { lat, lng } = e.latlng;
       navigate(`form?lat=${lat}&lng=${lng}`);

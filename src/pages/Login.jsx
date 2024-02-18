@@ -15,7 +15,7 @@ export default function Login() {
     function () {
       if (isAuthenticated) navigate("/app", { replace: true });
     },
-    [isAuthenticated]
+    [isAuthenticated, navigate]
   );
 
   function handleSubmit(e) {
